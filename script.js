@@ -1,7 +1,12 @@
+const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 const API_URL = 'https://zoeken.oba.nl/api/v1/search/?q=1984&authorization=ffbc1ededa6f23371bc40df1864843be&output=json';
 
 async function fetchData() {
-  const response = await fetch(API_URL);
+  const response = await fetch(PROXY_URL + API_URL, {
+    headers: {
+      'Origin': '*'
+    }
+  });
   const data = await response.json();
   return data;
 }
