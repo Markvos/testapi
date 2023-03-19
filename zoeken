@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>OBA API Zoekresultaten</title>
+</head>
+<body>
+
+	<h1>Zoekresultaten:</h1>
+
+	<div id="search-results"></div>
+
+	<script>
+		const searchUrl = "https://zoeken.oba.nl/api/v1/search/?q=1984&authorization=ffbc1ededa6f23371bc40df1864843be&output=json";
+		const searchResultsDiv = document.getElementById("search-results");
+
+		//Haal zoekresultaten op van OBA API
+		fetch(searchUrl)
+		  .then(response => response.json())
+		  .then(data => {
+		  	//Analyseer JSON-data en toon zoekresultaten
+		  	data.results.forEach(result => {
+		  		const title = result.titles[0].title;
+		  		const coverImage = result.coverimages[0];
+
+		  		const div = document.createElement("div");
+		  		div.innerHTML = `<img src="${coverImage}" alt="${title}"><h3>${title}</h3>`;
+		  		searchResultsDiv.appendChild(div);
+		  	});
+		  });
+	</script>
+
+</body>
+</html>
